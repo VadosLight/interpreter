@@ -7,6 +7,7 @@
 #include "label_table.h"
 
 
+
 class LabelTableImpl {
   std::map<unsigned int, Parser::Holder> labels;
 public:

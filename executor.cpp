@@ -11,6 +11,7 @@
 #include "commands.h"
 
 
+
 void register_commands() {
     //обращается в файл name_table.cpp и регистрирует новую комманду
   NT.RegisterCommand("FOR",new CmdFor);
