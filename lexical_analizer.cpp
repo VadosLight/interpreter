@@ -27,12 +27,13 @@ Lexem Parser::get_lexem()
 {
   char c;
   in >> c; //—читывает символ потока
-  while ( c == ' ' || c=='\t' ) { //если табул€ци€ или пробел,  то пропускаем
+  while ( c == ' ' || c=='\t' ) { //если табул€ци€ или пробел, то записываем их в in
     in >> c;
-    if (!in)
+    if (!in) //если ин пустой (таб или пробел), то будем "пропускать" их пока они есть в последовательности
       break;
   }
   
+  // онец строки
   if ( c == '\n' ) {
     last.type=LT_EOL;
     ++line_number; //прибавл€ем к счетчику строк 1
@@ -62,9 +63,9 @@ Lexem Parser::get_lexem()
 
   // –азделители
   const std::string delimiters("+-*/();=<>");
-  std::string::size_type pos=delimiters.find(c);
+  std::string::size_type pos=delimiters.find(c);//≈сли разделитель найден в предыдущей строке, то возвращаем его позицию
 
-  if (pos != std::string::npos) {
+  if (pos != std::string::npos) { // npos - это несуществующа€ позици€ в string
     last.type=LT_Delimiter;
     last.delimiter=c;
     return last;

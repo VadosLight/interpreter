@@ -11,7 +11,7 @@ enum  LexemType {
   LT_Number, //Число
   LT_End, //Конец файла
   LT_Delimiter, //разделители +-*/();=<>
-  LT_Identifier, //Идентификатор строки(?)
+  LT_Identifier, //Имя
   LT_Label, //
   LT_String, //строка внутри кавычек
   LT_EOL, // Конец строки
@@ -46,6 +46,7 @@ public:
   std::istream& in;
   Lexem         last;
   int           line_number;
+
 public:  
   Parser(std::istream& str);
   Lexem get_lexem();            // считать следующую лексему
