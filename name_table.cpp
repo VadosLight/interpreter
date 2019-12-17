@@ -12,6 +12,8 @@ NameTable NT;
 NameTable::~NameTable()
 {
   // Таблица имен "владеет" объектами команд
+
+    //Нельзя менять данные, на которые указывает const_iterator. Компилятор генерит более быстрый код.
   std::map<std::string, Command *>::const_iterator it(commands.begin());
   for ( ; it != commands.end(); ++it )
     delete (it->second);
@@ -25,6 +27,7 @@ void NameTable::RegisterCommand(std::string const& name, Command *cmd) {
 */
 bool NameTable::ProcessCommand(Parser& parser)
 {
+    //Нельзя менять данные, на которые указывает const_iterator. Компилятор генерит более быстрый код.
   std::map<std::string, Command *>::const_iterator it(commands.begin());
   for ( ; it != commands.end(); ++it ) {
     if (it->second->Process(parser))

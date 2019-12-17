@@ -7,17 +7,19 @@
 
 // Типы лексем, используемых калькулятором
 enum  LexemType {
-  LT_Unknown,
-  LT_Number, 
-  LT_End,
-  LT_Delimiter,
-  LT_Identifier,
-  LT_Label,
-  LT_String,
-  LT_EOL,
+  LT_Unknown,//нераспознанная лексема
+  LT_Number, //Число
+  LT_End, //Конец файла
+  LT_Delimiter, //разделители +-*/();=<>
+  LT_Identifier, //Идентификатор строки(?)
+  LT_Label, //
+  LT_String, //строка внутри кавычек
+  LT_EOL, // Конец строки
 };
 
 // Структура лексемы
+
+//  Лексема - это последовательность допустимых символов языка программирования, имеющая смысл для интерпретатора.
 struct Lexem {
   LexemType   type;         // тип
   float       value;        // значение    (если тип TT_Number)

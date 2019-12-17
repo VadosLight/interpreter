@@ -66,6 +66,7 @@ void scan_for_labels(Parser& parser)
 
 
 void execute_script(std::istream& in) {
+    //Начинаем регистрировать комманды
   register_commands();
   Parser  parser(in);
 

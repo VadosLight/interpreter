@@ -26,8 +26,8 @@ Lexem Parser::get_last()  {
 Lexem Parser::get_lexem() 
 {
   char c;
-  in >> c;
-  while ( c == ' ' || c=='\t' ) {
+  in >> c; //—читывает символ потока
+  while ( c == ' ' || c=='\t' ) { //если табул€ци€ или пробел,  то пропускаем
     in >> c;
     if (!in)
       break;
@@ -35,7 +35,7 @@ Lexem Parser::get_lexem()
   
   if ( c == '\n' ) {
     last.type=LT_EOL;
-    ++line_number;
+    ++line_number; //прибавл€ем к счетчику строк 1
     // ќтладочна€ печать номеров строк
     //std::cout << "[" << line_number << "]";
     return last;
@@ -71,7 +71,7 @@ Lexem Parser::get_lexem()
   }
 
   // „исловое значение
-  if ( isdigit(c) || c=='.' ) {
+  if ( isdigit(c) || c=='.' ) { //€вл€етс€ ли он числом или нет (с учетом дробной части)
     in.putback(c);
     in >> last.value;
     last.type = LT_Number;
@@ -79,7 +79,7 @@ Lexem Parser::get_lexem()
   }
 
   // идентификатор
-  if ( isalpha(c) ) {
+  if ( isalpha(c) ) { // €вл€етс€ ли он строчной или прописной буквой алфавита.
     last.name="";
     while (isalpha(c)) {
       last.name+=c;
