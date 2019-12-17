@@ -24,11 +24,11 @@ void LabelTable::AddLabel(unsigned int param1, Parser::Holder param2) {
 Parser::Holder LabelTable::GetHolder(unsigned int param) {
   return pImpl->GetHolder(param);
 }
-
+//Функция добавления метки перехода
 void LabelTableImpl::AddLabel(unsigned int label, Parser::Holder holder) {
   labels[label] = holder;
 }
-
+//Функция получения метки перехода
 Parser::Holder LabelTableImpl::GetHolder(unsigned int label)  {
   if ( 0 == labels.count(label) )
     throw "Label is absent";

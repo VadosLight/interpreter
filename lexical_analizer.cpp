@@ -16,6 +16,8 @@ Parser::Parser(std::istream& in)
 // Возвращает предыдущую считанную лексему
 // Если не было считано никакой лексемы - вызывает get_token
 // для чтения лексемы
+
+//Функция возвращения предыдущей лексемы
 Lexem Parser::get_last()  {
   if (last.type==LT_Unknown)
     return get_lexem();
@@ -94,6 +96,7 @@ Lexem Parser::get_lexem()
   throw "Unexpected lexem";
 }
 
+//Функция получения позиции указателя
 Parser::Holder Parser::Hold() const
 {
   Holder holder;
@@ -102,6 +105,7 @@ Parser::Holder Parser::Hold() const
   return holder;
 }
 
+//Функция установки позиции указателя 
 void Parser::Fetch(Holder holder)
 {
   in.seekg(holder.pos); /*Функция seekg() используется с потоками ввода. 
@@ -110,16 +114,18 @@ void Parser::Fetch(Holder holder)
   line_number = holder.line_number;
 }
 
-void Parser::Reset(){ //Очитка потока и возвращение в нулевую позицию
+//Функция перемещения указателя в начало
+void Parser::Reset(){
   in.clear();
   in.seekg(0);
 }
 
+//Пропускаем всё до конца строки
 bool Parser::SkipUntilEOL() { 
   while (get_lexem().type != LT_EOL) {
     if (get_lexem().type == LT_End  )
       return false;
   }
-  get_lexem();
+  get_lexem();//начинаем обработку следующей лексемы
   return true;
 }

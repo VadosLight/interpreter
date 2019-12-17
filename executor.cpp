@@ -23,7 +23,7 @@ void register_commands() {
   NT.RegisterCommand("PRINT",new CmdPrint);
 }
 
-// Функция обязана вернуть false при завершении
+//Функция выполнения лексемы
 bool execute_command(Parser &parser) {
   Lexem lex = parser.get_last();
 
@@ -49,7 +49,7 @@ bool execute_command(Parser &parser) {
 
   return true;  
 }
-
+//Функция поиска переходов
 void scan_for_labels(Parser& parser)
 {
   bool prev_lexem_is_EOL(true);
@@ -64,7 +64,7 @@ void scan_for_labels(Parser& parser)
   }
 }
 
-
+//Функция выполнения скрипта
 void execute_script(std::istream& in) {
     //Начинаем регистрировать комманды
   register_commands();

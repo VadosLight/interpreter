@@ -12,7 +12,7 @@ enum  LexemType {
   LT_End, //Конец файла
   LT_Delimiter, //разделители +-*/();=<>
   LT_Identifier, //Имя
-  LT_Label, //
+  LT_Label, //предположительно, это для goto
   LT_String, //строка внутри кавычек
   LT_EOL, // Конец строки
 };
@@ -37,8 +37,6 @@ class Parser {
   Parser(const Parser&);
   Parser& operator = (const Parser&);
 
-
-
 public:
   class Holder {
     std::istream::pos_type  pos;
@@ -46,11 +44,9 @@ public:
     friend class Parser;
   };
 
-
   std::istream& in;
   Lexem         last;
   int           line_number;
-
 
 
 public:  

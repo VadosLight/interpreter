@@ -75,7 +75,7 @@ bool CmdInput::Process(Parser& parser) {
 //Структура необходима для реализации цикла фор
 struct ForInfo { 
   std::string     control_variable; //Храним название переменной, значние кторой будет меняться
-  Parser::Holder  loop_begin;
+  Parser::Holder  loop_begin; 
   float           upper_limit; //Верхний предел цикла (до какого числа он будет повторяться)
   float           step; //Шаг
 
@@ -119,6 +119,7 @@ bool CmdFor::Process(Parser& parser) {
 
   for_info.loop_begin = parser.Hold();
 
+  //Докладываем в стек 
   CmdForStack.push(for_info);
 
   return true;
@@ -129,12 +130,13 @@ bool CmdNext::Process(Parser& parser) {
   if (parser.get_last().name != "NEXT")
     return false;
 
-  ForInfo for_info = CmdForStack.top();
+  ForInfo for_info = CmdForStack.top(); //Снимаем верхний фор
 
   float value(NT.GetVariable(for_info.control_variable));
-  value+=for_info.step;
-  NT.SetVariable(for_info.control_variable,value);
+  value+=for_info.step; //Делаем шаг
+  NT.SetVariable(for_info.control_variable,value); //Ставим увеличенное на Шаг значение
 
+  //Если значение ещё не достигло верхнего лимита, то снова переходим к началу цикла
   if (value <= for_info.upper_limit) {
     parser.Fetch(for_info.loop_begin);
   } else 
