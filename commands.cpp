@@ -54,7 +54,7 @@ bool CmdPrint::Process(Parser& parser) {
     }
   }
 
-  return true;//Не совсем понятно, зачем это тут
+  return true;
 }
 
 // INPUT
