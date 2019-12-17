@@ -10,7 +10,7 @@
 Parser::Parser(std::istream& in)
 : in(in), line_number(1) {
   last.type=LT_Unknown;
-  in >> std::noskipws;
+  in >> std::noskipws;//noskipws - отключает пропуск пустых пространств
 }
 
 // Возвращает предыдущую считанную лексему
@@ -66,7 +66,7 @@ Lexem Parser::get_lexem()
   std::string::size_type pos=delimiters.find(c);//Если разделитель найден в предыдущей строке, то возвращаем его позицию
 
   if (pos != std::string::npos) { // npos - это несуществующая позиция в string
-    last.type=LT_Delimiter;
+    last.type=LT_Delimiter; 
     last.delimiter=c;
     return last;
   }
@@ -97,23 +97,25 @@ Lexem Parser::get_lexem()
 Parser::Holder Parser::Hold() const
 {
   Holder holder;
-  holder.pos = in.tellg();
-  holder.line_number = line_number;
+  holder.pos = in.tellg(); //с помощью функций tellg() и tellp() соответственно можно определить текущую позицию указателей ввода и вывода
+  holder.line_number = line_number; //записываем новое значение строки
   return holder;
 }
 
 void Parser::Fetch(Holder holder)
 {
-  in.seekg(holder.pos);
+  in.seekg(holder.pos); /*Функция seekg() используется с потоками ввода. 
+                        Она смещает указатель "get" для текущего потока на offset байтов,
+                        или располагает указатель "get" в позицию position.*/
   line_number = holder.line_number;
 }
 
-void Parser::Reset(){
+void Parser::Reset(){ //Очитка потока и возвращение в нулевую позицию
   in.clear();
   in.seekg(0);
 }
 
-bool Parser::SkipUntilEOL() {
+bool Parser::SkipUntilEOL() { 
   while (get_lexem().type != LT_EOL) {
     if (get_lexem().type == LT_End  )
       return false;

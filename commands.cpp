@@ -18,26 +18,28 @@
 
 // LET
 bool CmdExpression::Process(Parser& parser) {
-  if (parser.get_last().name != "LET")
+  if (parser.get_last().name != "LET") //≈сли последнее название не равно LET, то выкидываем false.
     return false;
 
-  std::string left(parser.get_lexem().name);
+  std::string left(parser.get_lexem().name); //в левую часть записываем название лексемы (название переменной)
   if ( parser.get_lexem().type != LT_Delimiter ||
        parser.get_last().delimiter  != '=' )
-    throw "Bad assigment";   
+    throw "Bad assignment";   
  
-  float value = evaluate_expression(parser);
+  float value = evaluate_expression(parser); //ѕолучаем значение выражени€ справа от лексемы
 
-  NT.SetVariable(left,value);
+  NT.SetVariable(left,value); // ”станавливаем значение в переменную
 
   return true;
 }
 
 // PRINT
 bool CmdPrint::Process(Parser& parser) {
-  if (parser.get_last().name != "PRINT")
+  if (parser.get_last().name != "PRINT") //ѕроверка
     return false;
 
+  /*ƒо тех пор, пока лексема €вл€етс€ строкой или названием переменной, 
+  выводим либо просто символ строки, либо пытаемс€ вывести значение переменной*/
   for (;;) {
     switch (parser.get_lexem().type) {
     case LT_String:
@@ -46,37 +48,38 @@ bool CmdPrint::Process(Parser& parser) {
     case LT_Identifier:
       std::cout << NT.GetVariable(parser.get_last().name);
       break;
-    default:
+    default://¬ конце концов печатаем новую строку и гордо выходим
       std::cout << std::endl;
       return true;
     }
   }
 
-  return true;
+  return true;//Ќе совсем пон€тно, зачем это тут
 }
 
 // INPUT
 bool CmdInput::Process(Parser& parser) {
-  if (parser.get_last().name != "INPUT")
+  if (parser.get_last().name != "INPUT") //ѕроверка
     return false;
 
-  std::cout << "?";
-  float value;
-  std::cin >> value;
-  NT.SetVariable(parser.get_lexem().name,value);
+  std::cout << "?"; //предложение ввода, причем только числа
+  float value; 
+  std::cin >> value; 
+  NT.SetVariable(parser.get_lexem().name,value); //”станавливаем новое значение в переменную
 
   parser.get_lexem();
 
   return true;
 }
 
-struct ForInfo {
-  std::string     control_variable;
+//—труктура необходима дл€ реализации цикла фор
+struct ForInfo { 
+  std::string     control_variable; //’раним название переменной, значние кторой будет мен€тьс€
   Parser::Holder  loop_begin;
-  float           upper_limit;
-  float           step;
+  float           upper_limit; //¬ерхний предел цикла (до какого числа он будет повтор€тьс€)
+  float           step; //Ўаг
 
-  ForInfo() : step(1.0f) {}
+  ForInfo() : step(1.0f) {} //ѕо умолчанию ставим шаг = 1
 };
 
 std::stack<ForInfo> CmdForStack;
@@ -88,23 +91,29 @@ bool CmdFor::Process(Parser& parser) {
 
   ForInfo for_info;
 
-  if (parser.get_lexem().type != LT_Identifier)
+  //ожидание названи€ переменной
+  if (parser.get_lexem().type != LT_Identifier) 
     throw "Identifier expected";
   
-  for_info.control_variable = parser.get_last().name;
+  //записываем им€ отслеживаемой переменной
+  for_info.control_variable = parser.get_last().name; 
 
+  //ожидаем оператор присваивани€ или другой разделитель(хот€ там тоже содержитс€ знак =.
   if (parser.get_lexem().type != LT_Delimiter ||
       parser.get_last().delimiter != '=')
     throw "Assigment expected";
 
+  //ѕрисваивам новое значение объ€вленной переменной
   NT.SetVariable(for_info.control_variable,evaluate_expression(parser));
 
   if (parser.get_last().type != LT_Identifier ||
       parser.get_last().name != "TO")
     throw "TO expected in FOR statement";
 
+  //«аписываем верхнюю границу в "пам€ть"
   for_info.upper_limit = evaluate_expression(parser);
 
+  //ожидаем конец строки
   if ( parser.get_last().type != LT_EOL )
     throw "STEP not supported now in FOR statement";
 

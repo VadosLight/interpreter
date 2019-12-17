@@ -37,15 +37,21 @@ class Parser {
   Parser(const Parser&);
   Parser& operator = (const Parser&);
 
+
+
 public:
   class Holder {
     std::istream::pos_type  pos;
     unsigned int            line_number;
     friend class Parser;
   };
+
+
   std::istream& in;
   Lexem         last;
   int           line_number;
+
+
 
 public:  
   Parser(std::istream& str);
