@@ -10,7 +10,7 @@
 #include <fstream>
 #include "executor.h"
 
-
+//чем отличаются _tmain от обычного 
 int _tmain(int argc, _TCHAR* argv[])
 {
 
@@ -20,7 +20,7 @@ int _tmain(int argc, _TCHAR* argv[])
     std::cout << "Script filename.ext" << std::endl;
     return 1;
   }
-  //Попытка открыть файл по пуцти, во втором аргументе
+  //Попытка открыть файл по пути, во втором аргументе
   try {
     std::ifstream in(argv[1]);
     if (!in)

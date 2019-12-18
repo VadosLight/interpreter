@@ -78,5 +78,5 @@ void execute_script(std::istream& in) {
   parser.get_lexem();
   while (execute_command(parser));
 
-  std::cout << "OK" << std::endl;
+  std::cout << "End of the program" << std::endl;
 }
