@@ -1,12 +1,3 @@
-﻿  stdafx.cpp
-cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  name_table.cpp
+﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
   lexical_analizer.cpp
-  label_table.cpp
-  executor.cpp
-  commands.cpp
-  calculator.cpp
-  Script.cpp
-  Generating Code...
-cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  Script.vcxproj -> D:\GoogleDrive\Уник\4 Курс\7 семестр\Остальное\ЛиПОАС\Лабораторные работы\ЛиПОАС_ЛР3_Script\Debug\Script.exe
+  Script.vcxproj -> D:\Projects\New\F_K\interpreter\interpreter\Debug\Script.exe

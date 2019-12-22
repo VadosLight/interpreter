@@ -44,7 +44,7 @@ bool execute_command(Parser &parser) {
     parser.get_lexem();
     break;
   default:
-    throw "Bad syntax";
+    throw "Very Sad syntax";
   }
 
   return true;  

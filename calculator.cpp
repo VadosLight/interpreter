@@ -128,7 +128,7 @@ float plus_minus(Parser& parser) {
 }
 
 
-// Вычисляет выражение
+// Вычисляет выражение - логическое сравнение
 float evaluate_expression(Parser& parser) {
   float left = plus_minus(parser);
 

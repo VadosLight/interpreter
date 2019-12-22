@@ -64,7 +64,7 @@ Lexem Parser::get_lexem()
   }
 
   // –азделители
-  const std::string delimiters("+-*/();=<>");
+  const std::string delimiters("+-*^/();=<>");
   std::string::size_type pos=delimiters.find(c);//≈сли разделитель найден в предыдущей строке, то возвращаем его позицию
 
   if (pos != std::string::npos) { // npos - это несуществующа€ позици€ в string
