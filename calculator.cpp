@@ -54,23 +54,37 @@ float prim(Parser& parser) {
 }
 
 // Обрабатывает возведение в степень
-float powterm(Parser& parser) {
-	float left = prim(parser);
-	for (;;) {
-		if (parser.get_last().type == LT_Delimiter) {
-			switch (parser.get_last().delimiter)
-			{
-			case '^':
-				left = pow(left, prim(parser));
-				break;
-			default:
-				return left;
-			}
-		}
-		else
-			return left;
-	}
-	return left;
+float powterm(Parser& parser)
+{
+    float left = prim(parser);
+
+    for (;;)
+    {
+        if (parser.get_last().type == LT_Delimiter)
+        {
+            switch (parser.get_last().delimiter)
+            {
+            case '^':
+            {
+                float a = powterm(parser);
+                if (a != 0)
+                {                  
+                        left = pow(left, a);         
+                }
+                else
+                {
+                    throw "Error: Uncertainty";
+                }
+                break;
+            }
+            default:
+                return left;
+            }
+        }
+        else
+            return left;
+    }
+    return left;
 }
 
 // Обрабатывает умножение и деление

@@ -1,3 +1,3 @@
 ﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  lexical_analizer.cpp
+  calculator.cpp
   Script.vcxproj -> D:\Projects\New\F_K\interpreter\interpreter\Debug\Script.exe
